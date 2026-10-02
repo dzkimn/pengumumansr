@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pengumuman Departemen Senior Resident XIV</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+    :root {
+      --primary: #1a1a2e;
+      --secondary: #16213e;
+      --accent: #0f3460;
+      --gold: #e8a317;
+      --gold-light: #f5c842;
+      --white: #ffffff;
+      --gray: #94a3b8;
+      --success: #10b981;
+      --card-bg: rgba(255,255,255,0.05);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--primary);
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .bg-particles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      width: 4px; height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: float linear infinite;
+      opacity: 0;
+    }
+    @keyframes float {
+      0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.3; }
+      100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+    }
+
+    .header {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 60px 20px 40px;
+      background: linear-gradient(180deg, rgba(15,52,96,0.8) 0%, transparent 100%);
+    }
+    .header .logo {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      opacity: 0.9;
+    }
+    .header h1 {
+      font-size: clamp(24px, 5vw, 48px);
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold), #ff6b35);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .header .subtitle {
+      font-size: 16px;
+      color: var(--gray);
+      font-weight: 400;
+    }
+    .header .badge {
+      display: inline-block;
+      margin-top: 16px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 20px;
+      border-radius: 100px;
+      letter-spacing: 2px;
+    }
+
+    .search-section {
+      position: relative;
+      z-index: 10;
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 20px 20px 50px;
+    }
+    .search-card {
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(232,163,23,0.2);
+      border-radius: 24px;
+      padding: 40px 36px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .search-card h2 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .search-card p  { font-size: 13px; color: var(--gray); margin-bottom: 28px; }
+    .input-group { display: flex; flex-direction: column; gap: 14px; }
+    .input-wrap { position: relative; }
+    .input-wrap .icon {
+      position: absolute;
+      left: 16px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px; color: var(--gold);
+    }
+    .input-wrap input {
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 16px 16px 16px 48px;
+      color: var(--white);
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      outline: none;
+      transition: all 0.3s;
+    }
+    .input-wrap input::placeholder { color: rgba(255,255,255,0.3); }
+    .input-wrap input:focus {
+      border-color: var(--gold);
+      background: rgba(232,163,23,0.08);
+      box-shadow: 0 0 0 4px rgba(232,163,23,0.12);
+    }
+    .btn-search {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--primary);
+      border: none;
+      border-radius: 14px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-search:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(232,163,23,0.4); }
+    .btn-search:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    #result-section {
+      position: relative; z-index: 10;
+      max-width: 700px; margin: 0 auto;
+      padding: 0 20px 80px; display: none;
+    }
+
+    .not-found-card {
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.3);
+      border-radius: 20px; padding: 40px; text-align: center;
+    }
+    .not-found-card .icon { font-size: 52px; margin-bottom: 16px; }
+    .not-found-card h3 { font-size: 20px; font-weight: 700; color: #f87171; margin-bottom: 8px; }
+    .not-found-card p { color: var(--gray); font-size: 14px; }
+
+    .loading-card {
+      text-align: center; padding: 40px;
+      color: var(--gray); font-size: 15px;
+    }
+    .spinner {
+      width: 40px; height: 40px;
+      border: 3px solid rgba(232,163,23,0.2);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .result-card {
+      border-radius: 24px; overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+      animation: slideUp 0.5s ease;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-header { padding: 36px; text-align: center; }
+    .dept-icon { font-size: 56px; display: block; margin-bottom: 6px; }
+    .result-header h2 { font-size: clamp(18px, 4vw, 26px); font-weight: 800; margin-bottom: 8px; }
+    .dept-name {
+      font-size: clamp(28px, 6vw, 48px);
+      font-weight: 800; letter-spacing: 2px;
+      margin: 12px 0; line-height: 1.1;
+    }
+    .jabatan-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--white);
+      font-size: 12px; font-weight: 600;
+      padding: 6px 18px; border-radius: 100px;
+      margin-top: 8px; letter-spacing: 1px;
+    }
+
+    .result-body { background: rgba(255,255,255,0.05); padding: 32px 36px; }
+    .info-row {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-icon { font-size: 22px; width: 40px; text-align: center; flex-shrink: 0; }
+    .info-content { flex: 1; }
+    .info-label { font-size: 11px; color: var(--gray); font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+    .info-value { font-size: 16px; font-weight: 600; color: var(--white); margin-top: 2px; }
+
+    .wa-section { padding: 28px 36px 36px; background: rgba(0,0,0,0.2); }
+    .wa-label { font-size: 12px; color: var(--gray); font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; }
+    .wa-btn {
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      width: 100%; padding: 18px;
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: white; border: none; border-radius: 16px;
+      font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700;
+      text-decoration: none; cursor: pointer; transition: all 0.3s;
+      box-shadow: 0 8px 25px rgba(37,211,102,0.35);
+    }
+    .wa-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 35px rgba(37,211,102,0.5); }
+    .wa-icon { font-size: 26px; }
+
+    .theme-INTI     { background: linear-gradient(135deg, #1a1a2e, #e8a317, #f5c842); }
+    .theme-AKADEMIK { background: linear-gradient(135deg, #0f3460, #533483, #e94560); }
+    .theme-SPIRITUAL{ background: linear-gradient(135deg, #134e4a, #065f46, #059669); }
+    .theme-SOSIAL   { background: linear-gradient(135deg, #7c3aed, #4c1d95, #c026d3); }
+    .theme-ADAPTIF  { background: linear-gradient(135deg, #ea580c, #c2410c, #fbbf24); }
+    .theme-RND      { background: linear-gradient(135deg, #0369a1, #0c4a6e, #38bdf8); }
+    .theme-MEDIA    { background: linear-gradient(135deg, #be185d, #9d174d, #f472b6); }
+    .theme-HCO      { background: linear-gradient(135deg, #0f766e, #134e4a, #2dd4bf); }
+
+    .btn-back {
+      margin-top: 20px; width: 100%; padding: 14px;
+      background: transparent; border: 1.5px solid rgba(255,255,255,0.2);
+      border-radius: 14px; color: var(--gray);
+      font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 500;
+      cursor: pointer; transition: all 0.3s;
+    }
+    .btn-back:hover { background: rgba(255,255,255,0.06); color: var(--white); }
+
+    .footer {
+      position: relative; z-index: 10; text-align: center;
+      padding: 30px 20px 50px; color: rgba(255,255,255,0.25); font-size: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .search-card { padding: 28px 22px; }
+      .result-header, .result-body, .wa-section { padding-left: 22px; padding-right: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-particles" id="particles"></div>
+
+<div class="header">
+  <div class="logo">✦ Telkom University ✦</div>
+  <h1>Pengumuman Resmi<br>Senior Resident XIV</h1>
+  <p class="subtitle">Tahun Akademik 2026/2027</p>
+  <div class="badge">🎉 SELAMAT BERGABUNG</div>
+</div>
+
+<div class="search-section">
+  <div class="search-card">
+    <h2>Cek Departemen Kamu 🔍</h2>
+    <p>Masukkan NIM kamu untuk mengetahui departemen yang kamu terima</p>
+    <div class="input-group">
+      <div class="input-wrap">
+        <span class="icon">🪪</span>
+        <input type="text" id="nim-input" placeholder="Contoh: 103012500137" inputmode="numeric" />
+      </div>
+      <button class="btn-search" id="btn-search" onclick="searchMember()">Cek Sekarang ✨</button>
+    </div>
+  </div>
+</div>
+
+<div id="result-section">
+  <div id="result-content"></div>
+  <button class="btn-back" onclick="resetSearch()">← Cari Lagi</button>
+</div>
+
+<div class="footer">
+  Senior Resident XIV · Telkom University · 2026<br>
+  Dibuat dengan ❤️ untuk seluruh anggota SR XIV
+</div>
+
+<!-- Supabase SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// ============================================================
+//  KONFIGURASI SUPABASE
+//  Ganti SUPABASE_URL dan SUPABASE_ANON_KEY dengan milik kamu
+// ============================================================
+const SUPABASE_URL      = 'https://gzwqzdvufjgdtjqhodwm.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_C-SJBSNzvgcSQot_MSUt1w_s7QOgTGr';
+
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// ============================================================
+//  INFO DEPARTEMEN (link WA, warna, icon)
+// ============================================================
+const DEPT_INFO = {
+  INTI:     { icon: '⭐', label: 'INTI',     wa: 'https://chat.whatsapp.com/IXz3SNKrknF8GZ7mWAM5qn', color: 'theme-INTI',      desc: 'Inti Kepengurusan SR XIV' },
+  AKADEMIK: { icon: '📚', label: 'AKADEMIK', wa: 'https://chat.whatsapp.com/Hyi2cL26uaJ2mEqwYyCcwD', color: 'theme-AKADEMIK',  desc: 'Departemen Akademik' },
+  SPIRITUAL:{ icon: '🕌', label: 'SPIRITUAL',wa: 'https://chat.whatsapp.com/IYIB8Ddc6FH1p54ceGC7iM', color: 'theme-SPIRITUAL', desc: 'Departemen Spiritual' },
+  SOSIAL:   { icon: '🤝', label: 'SOSIAL',   wa: 'https://chat.whatsapp.com/Dg9TELyVrEI9M6HBVotWsR', color: 'theme-SOSIAL',    desc: 'Departemen Sosial' },
+  ADAPTIF:  { icon: '🔄', label: 'ADAPTIF',  wa: 'https://chat.whatsapp.com/H9kjpkKrcv0BPQK03jQ40U', color: 'theme-ADAPTIF',   desc: 'Departemen Adaptif' },
+  RND:      { icon: '🔬', label: 'RnD',      wa: 'https://chat.whatsapp.com/L1YZn9uOvQ58L69cm0Z3cd', color: 'theme-RND',       desc: 'Research & Development' },
+  MEDIA:    { icon: '🎬', label: 'MEDIA',    wa: 'https://chat.whatsapp.com/Ibo9uPIeIDwAsBKpBgAjaC', color: 'theme-MEDIA',     desc: 'Departemen Media' },
+  HCO:      { icon: '💼', label: 'HCO',      wa: 'https://chat.whatsapp.com/KgeNMSaVVBaLdppZretwIb', color: 'theme-HCO',       desc: 'Human Capital & Operations' },
+};
+
+// ============================================================
+//  SEARCH
+// ============================================================
+async function searchMember() {
+  const nimInput = document.getElementById('nim-input').value.trim().replace(/\s+/g, '');
+  const btn      = document.getElementById('btn-search');
+
+  if (!nimInput) {
+    alert('Masukkan NIM kamu terlebih dahulu ya! 😊');
+    return;
+  }
+
+  // Show loading
+  btn.disabled   = true;
+  btn.textContent = 'Mencari...';
+
+  const resultSection = document.getElementById('result-section');
+  const resultContent = document.getElementById('result-content');
+  resultSection.style.display = 'block';
+  resultContent.innerHTML = `
+    <div class="loading-card">
+      <div class="spinner"></div>
+      Sedang mencari data kamu...
+    </div>`;
+  resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // Query Supabase — tabel: members, kolom: nim (text)
+  const { data, error } = await db
+    .from('members')
+    .select('*')
+    .eq('nim', nimInput)
+    .maybeSingle();
+
+  btn.disabled    = false;
+  btn.textContent = 'Cek Sekarang ✨';
+
+  if (error) {
+    resultContent.innerHTML = `
+      <div class="not-found-card">
+        <div class="icon">⚠️</div>
+        <h3>Terjadi Kesalahan</h3>
+        <p>Gagal mengambil data: ${error.message}</p>
+      </div>`;
+    return;
+  }
+
+  if (!data) {
+    resultContent.innerHTML = `
+      <div class="not-found-card">
+        <div class="icon">😢</div>
+        <h3>NIM Tidak Ditemukan</h3>
+        <p>NIM <strong>${nimInput}</strong> tidak ditemukan dalam database kami.<br>
+        Pastikan NIM yang kamu masukkan sudah benar ya!</p>
+      </div>`;
+    return;
+  }
+
+  const dept = DEPT_INFO[data.department?.toUpperCase()] || DEPT_INFO['INTI'];
+
+  resultContent.innerHTML = `
+    <div class="result-card">
+      <div class="result-header ${dept.color}">
+        <span class="dept-icon">${dept.icon}</span>
+        <h2>🎉 Selamat! Kamu Diterima di Departemen</h2>
+        <div class="dept-name">${dept.label}</div>
+        <div class="jabatan-badge">✦ ${data.jabatan} ✦</div>
+      </div>
+      <div class="result-body">
+        <div class="info-row">
+          <span class="info-icon">👤</span>
+          <div class="info-content">
+            <div class="info-label">Nama Lengkap</div>
+            <div class="info-value">${data.nama}</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">🪪</span>
+          <div class="info-content">
+            <div class="info-label">NIM</div>
+            <div class="info-value">${data.nim}</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">🏛️</span>
+          <div class="info-content">
+            <div class="info-label">Departemen</div>
+            <div class="info-value">${dept.desc}</div>
+          </div>
+        </div>
+      </div>
+      <div class="wa-section">
+        <div class="wa-label">📲 Silakan bergabung ke Grup WhatsApp Departemen</div>
+        <a href="${dept.wa}" target="_blank" class="wa-btn">
+          <span class="wa-icon">💬</span>
+          Masuk Grup WhatsApp ${dept.label}
+        </a>
+      </div>
+    </div>`;
+}
+
+function resetSearch() {
+  document.getElementById('nim-input').value = '';
+  document.getElementById('result-section').style.display = 'none';
+  document.querySelector('.search-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Enter') searchMember(); });
+
+// Particles
+const container = document.getElementById('particles');
+for (let i = 0; i < 30; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  p.style.left              = Math.random() * 100 + '%';
+  p.style.animationDuration = (8 + Math.random() * 12) + 's';
+  p.style.animationDelay   = (Math.random() * 10) + 's';
+  p.style.width = p.style.height = (2 + Math.random() * 5) + 'px';
+  container.appendChild(p);
+}
+</script>
+</body>
+</html>
